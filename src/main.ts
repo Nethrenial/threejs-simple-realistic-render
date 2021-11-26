@@ -59,12 +59,12 @@ const scene = new Scene();
  */
 
 const envMap = cubeTextureLoader.load([
-  "../src/static/environments/fireplace/px.png",
-  "../src/static/environments/fireplace/nx.png",
-  "../src/static/environments/fireplace/py.png",
-  "../src/static/environments/fireplace/ny.png",
-  "../src/static/environments/fireplace/pz.png",
-  "../src/static/environments/fireplace/nz.png",
+  "/environments/fireplace/px.png",
+  "/environments/fireplace/nx.png",
+  "/environments/fireplace/py.png",
+  "/environments/fireplace/ny.png",
+  "/environments/fireplace/pz.png",
+  "/environments/fireplace/nz.png",
 ]);
 
 envMap.encoding = sRGBEncoding;
@@ -94,7 +94,7 @@ const updateAllMaterials = () => {
 let horse: Group | null = null;
 
 gltfLoader.load(
-  "../src/static/models/horse_statue_01_1k.gltf/horse_statue_01_1k.gltf",
+  "/models/horse_statue_01_1k.gltf/horse_statue_01_1k.gltf",
   (gltf) => {
     gltf.scene.scale.set(60, 60, 60);
     horse = gltf.scene;
