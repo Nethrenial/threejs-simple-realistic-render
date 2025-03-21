@@ -1,4 +1,4 @@
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import "./style.css";
 import {
   Scene,
@@ -8,7 +8,7 @@ import {
   Mesh,
   DirectionalLight,
   PCFSoftShadowMap,
-  sRGBEncoding,
+  SRGBColorSpace,
   ReinhardToneMapping,
   ACESFilmicToneMapping,
   NoToneMapping,
@@ -19,13 +19,12 @@ import {
   // DirectionalLightHelper,
   Group,
   Clock,
-  // Clock,
 } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Stats from "three/examples/jsm/libs/stats.module";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import Stats from "three/addons/libs/stats.module.js";
 import { GUI } from "dat.gui";
 
-//Intiantiate the loader
+// Instantiate the loader
 const gltfLoader = new GLTFLoader();
 const cubeTextureLoader = new CubeTextureLoader();
 
@@ -67,7 +66,7 @@ const envMap = cubeTextureLoader.load([
   "/environments/fireplace/nz.png",
 ]);
 
-envMap.encoding = sRGBEncoding;
+envMap.colorSpace = SRGBColorSpace;
 
 scene.background = envMap;
 scene.environment = envMap;
@@ -217,8 +216,7 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
-renderer.physicallyCorrectLights = true;
-renderer.outputEncoding = sRGBEncoding;
+renderer.outputColorSpace = SRGBColorSpace;
 renderer.toneMapping = ACESFilmicToneMapping;
 
 gui
@@ -231,11 +229,11 @@ gui
   })
   .name("ToneMapping")
   .onFinishChange(() => {
-    renderer.toneMapping = Number(renderer.toneMapping);
+    renderer.toneMapping = Number(renderer.toneMapping) as any;
     updateAllMaterials();
   });
 
-const stats = Stats();
+const stats = new Stats();
 document.body.appendChild(stats.dom);
 
 const clock = new Clock();
