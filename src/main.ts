@@ -8,7 +8,7 @@ import {
   Mesh,
   DirectionalLight,
   PCFSoftShadowMap,
-  sRGBEncoding,
+  SRGBColorSpace,
   ReinhardToneMapping,
   ACESFilmicToneMapping,
   NoToneMapping,
@@ -67,7 +67,7 @@ const envMap = cubeTextureLoader.load([
   "/environments/fireplace/nz.png",
 ]);
 
-envMap.encoding = sRGBEncoding;
+envMap.colorSpace = SRGBColorSpace;
 
 scene.background = envMap;
 scene.environment = envMap;
@@ -217,8 +217,7 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = PCFSoftShadowMap;
-renderer.physicallyCorrectLights = true;
-renderer.outputEncoding = sRGBEncoding;
+renderer.outputColorSpace = SRGBColorSpace;
 renderer.toneMapping = ACESFilmicToneMapping;
 
 gui
@@ -231,11 +230,11 @@ gui
   })
   .name("ToneMapping")
   .onFinishChange(() => {
-    renderer.toneMapping = Number(renderer.toneMapping);
+    renderer.toneMapping = Number(renderer.toneMapping) as any;
     updateAllMaterials();
   });
 
-const stats = Stats();
+const stats = new Stats();
 document.body.appendChild(stats.dom);
 
 const clock = new Clock();
